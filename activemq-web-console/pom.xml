@@ -330,8 +330,8 @@
     </dependency>
     
     <dependency>
-      <groupId>org.eclipse.jetty</groupId>
-      <artifactId>apache-jsp</artifactId>
+      <groupId>org.eclipse.jetty.ee${jetty-ee-version}</groupId>
+      <artifactId>jetty-ee${jetty-ee-version}-apache-jsp</artifactId>
       <scope>provided</scope>
       <exclusions>
           <exclusion>
