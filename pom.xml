@@ -1403,5 +1403,62 @@
         <maven.surefire.allow.securitymanager>-Djava.security.manager=allow</maven.surefire.allow.securitymanager>
       </properties>
     </profile>
-  </profiles>
+
+  <!--
+    - TEMP: Remove after completion, used to simplify use with my IDE and
+    - minimize modules to work on.
+  -->
+  <profile>
+  <id>wwwjames-AMQ-9359</id>
+  <activation>
+      <activeByDefault>true</activeByDefault>
+      <jdk>17</jdk>
+  </activation>
+  <modules>
+    <module>activemq-openwire-generator</module>
+    <module>activemq-protobuf</module>
+    <module>activemq-protobuf-test</module>
+    <module>activemq-client</module>
+    <module>activemq-openwire-legacy</module>
+    <module>activemq-broker</module>
+    <module>activemq-stomp</module>
+    <module>activemq-mqtt</module>
+    <module>activemq-amqp</module>
+    <module>activemq-kahadb-store</module>
+    <module>activemq-jdbc-store</module>
+    <module>activemq-console</module>
+    <module>activemq-jaas</module>
+    <module>activemq-jms-pool</module>
+    <module>activemq-pool</module>
+    <module>activemq-cf</module>
+    <module>activemq-ra</module>
+    <module>activemq-rar</module>
+    <module>activemq-run</module>
+    <module>activemq-shiro</module>
+    <module>activemq-spring</module>
+    <module>activemq-tooling</module>
+    <module>activemq-web</module>
+    <module>activemq-web-console</module>
+    <module>activemq-karaf</module>
+    <module>activemq-osgi</module>
+    <module>activemq-log4j-appender</module>
+    <module>activemq-http</module>
+  </modules>
+   <build>
+      <defaultGoal>install</defaultGoal>
+    <plugins>
+     <plugin>
+      <groupId>org.apache.maven.plugins</groupId>
+      <artifactId>maven-surefire-plugin</artifactId>
+      <configuration>
+        <skipTests>true</skipTests>
+        <failIfNoTests>false</failIfNoTests>
+      </configuration>
+    </plugin>
+   </plugins>
+   </build>
+  </profile>
+
+</profiles>
+
 </project>
