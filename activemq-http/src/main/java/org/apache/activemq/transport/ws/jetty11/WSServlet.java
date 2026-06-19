@@ -38,12 +38,12 @@ import org.apache.activemq.transport.TransportAcceptListener;
 import org.apache.activemq.transport.TransportFactory;
 import org.apache.activemq.transport.util.HttpTransportUtils;
 import org.apache.activemq.transport.ws.WSTransportProxy;
-import org.eclipse.jetty.websocket.api.WebSocketListener;
-import org.eclipse.jetty.websocket.server.JettyServerUpgradeRequest;
-import org.eclipse.jetty.websocket.server.JettyServerUpgradeResponse;
-import org.eclipse.jetty.websocket.server.JettyWebSocketCreator;
-import org.eclipse.jetty.websocket.server.JettyWebSocketServlet;
-import org.eclipse.jetty.websocket.server.JettyWebSocketServletFactory;
+import org.eclipse.jetty.websocket.api.Session.Listener;
+import org.eclipse.jetty.websocket.server.ServerUpgradeRequest;
+import org.eclipse.jetty.websocket.server.ServerUpgradeResponse;
+import org.eclipse.jetty.websocket.server.WebSocketCreator;
+//import org.eclipse.jetty.websocket.server.JettyWebSocketServlet;
+//import org.eclipse.jetty.websocket.server.JettyWebSocketServletFactory;
 
 /**
  * Handle connection upgrade requests and creates web sockets
