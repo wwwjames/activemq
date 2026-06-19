@@ -39,6 +39,7 @@ $ mvn-39 clean install
 ## Documentation
 
 - [Jetty 11 to 12 migration guide](https://jetty.org/docs/jetty/12/programming-guide/migration/11-to-12.html)
+- [Jetty WebSocket Server and Serlvet migration guide](https://jetty.org/docs/jetty/12/programming-guide/server/websocket.html#jetty)
 
 ## Repositories
 
