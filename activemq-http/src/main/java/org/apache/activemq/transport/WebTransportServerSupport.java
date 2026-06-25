@@ -24,13 +24,13 @@ import java.util.Map;
 import org.apache.activemq.transport.http.BlockingQueueTransport;
 import org.apache.activemq.util.InetAddressUtil;
 import org.apache.activemq.util.IntrospectionSupport;
-import org.eclipse.jetty.security.ConstraintMapping;
-import org.eclipse.jetty.security.ConstraintSecurityHandler;
+import org.eclipse.jetty.ee9.security.ConstraintMapping;
+import org.eclipse.jetty.ee9.security.ConstraintSecurityHandler;
 import org.eclipse.jetty.server.Connector;
 import org.eclipse.jetty.server.Server;
-import org.eclipse.jetty.util.resource.Resource;
-import org.eclipse.jetty.util.security.Constraint;
+import org.eclipse.jetty.util.resource.PathResourceFactory;
 import org.eclipse.jetty.xml.XmlConfiguration;
+import org.eclipse.jetty.ee9.nested.ServletConstraint;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -63,7 +63,8 @@ abstract public class WebTransportServerSupport extends TransportServerSupport {
                 if (!file.exists()) {
                     throw new IllegalArgumentException("Jetty XML not found: " + file.getAbsolutePath());
                 }
-                XmlConfiguration xmlConfiguration = new XmlConfiguration(Resource.newResource(file));
+                PathResourceFactory pathResourceFactory = new PathResourceFactory();
+                XmlConfiguration xmlConfiguration = new XmlConfiguration( pathResourceFactory.newResource(file.toPath()));
                 server = (Server) xmlConfiguration.configure();
             } catch (Throwable t) {
                 throw new IllegalStateException("Jetty configuration can't be loaded", t);
@@ -111,7 +112,7 @@ abstract public class WebTransportServerSupport extends TransportServerSupport {
 
     protected void configureTraceMethod(ConstraintSecurityHandler securityHandler,
             boolean enableTrace) {
-        Constraint constraint = new Constraint();
+        ServletConstraint constraint = new ServletConstraint();
         constraint.setName("trace-security");
         //If enableTrace is true, then we want to set authenticate to false to allow it
         constraint.setAuthenticate(!enableTrace);
@@ -121,7 +122,7 @@ abstract public class WebTransportServerSupport extends TransportServerSupport {
         mapping.setPathSpec("/");
         securityHandler.addConstraintMapping(mapping);
 
-        constraint = new Constraint();
+        constraint = new ServletConstraint();
         constraint.setName("allow");
         mapping = new ConstraintMapping();
         mapping.setConstraint(constraint);

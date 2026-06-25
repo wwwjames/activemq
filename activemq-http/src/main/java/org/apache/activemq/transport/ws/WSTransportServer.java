@@ -31,14 +31,14 @@ import org.apache.activemq.transport.WebTransportServerSupport;
 import org.apache.activemq.transport.ws.jetty11.WSServlet;
 import org.apache.activemq.util.IntrospectionSupport;
 import org.apache.activemq.util.ServiceStopper;
-import org.eclipse.jetty.ee8.security.ConstraintSecurityHandler;
+import org.eclipse.jetty.ee9.security.ConstraintSecurityHandler;
 import org.eclipse.jetty.server.ConnectionFactory;
 import org.eclipse.jetty.server.Connector;
 import org.eclipse.jetty.server.HttpConnectionFactory;
 import org.eclipse.jetty.server.Server;
-import org.eclipse.jetty.ee8.servlet.ServletContextHandler;
-import org.eclipse.jetty.ee8.servlet.ServletHolder;
-import org.eclipse.jetty.websocket.server.config.JettyWebSocketServletContainerInitializer;
+import org.eclipse.jetty.ee9.servlet.ServletContextHandler;
+import org.eclipse.jetty.ee9.servlet.ServletHolder;
+import org.eclipse.jetty.ee9.websocket.jakarta.server.config.JakartaWebSocketServletContainerInitializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -79,7 +79,7 @@ public class WSTransportServer extends WebTransportServerSupport implements Brok
                 new ServletContextHandler(server, "/", ServletContextHandler.SECURITY);
 
         ServletHolder holder = new ServletHolder();
-        JettyWebSocketServletContainerInitializer.configure(contextHandler, null);
+        JakartaWebSocketServletContainerInitializer.configure(contextHandler, null);
         //AMQ-6182 - disabling trace by default
         configureTraceMethod((ConstraintSecurityHandler) contextHandler.getSecurityHandler(),
                 httpOptions.isEnableTrace());
