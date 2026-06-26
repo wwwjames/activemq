@@ -35,8 +35,8 @@ Use the following for the initial build before importing into IntelliJ:
 $ mvn-39 clean install
 ```
         
-**TODO:** Currently porting `activemq-http` module, looks like `org.apache.activemq.transport.ws.jetty11` will need to be
-renamed as well as refactored.
+**TODO:** Currently porting `activemq-http` module, finish porting and deprecating classes from `org.apache.activemq.transport.ws.jetty11`
+to `org.apache.activemq.transport.ws.jetty12`.
 
 ## Documentation
 
