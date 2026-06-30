@@ -24,6 +24,14 @@ $ mvn-39 -DskipTests clean install
 **NOTE:** See ~/.profile for details, had to modify for jenv shell to work with new logins
 due to open `jenv` issue.
 
+### IntelliJ import/setup
+
+May have to explicitly check the `allow-securitymanager`, `jdk9+`, and `wwwjames-AMQ-9359` profiles then run 
+clean and install in the IntelliJ Maven tool window.
+
+See [Introduction to profiles](https://maven.apache.org/guides/introduction/introduction-to-profiles.html) for more
+information.
+
 ## Status
 
 Following the Jetty 11 to 12 migration guide, using Jetty 12.0.36 and ee8, altered the project's pom to minimze the 
@@ -42,6 +50,7 @@ to `org.apache.activemq.transport.ws.jetty12`.
 
 - [Jetty 11 to 12 migration guide](https://jetty.org/docs/jetty/12/programming-guide/migration/11-to-12.html)
 - [Jetty WebSocket Server and Serlvet migration guide](https://jetty.org/docs/jetty/12/programming-guide/server/websocket.html#jetty)
+- [jetty-ee9-websocke-jetty-server module source](https://github.com/jetty/jetty.project/tree/jetty-12.1.x/jetty-ee9/jetty-ee9-websocket/jetty-ee9-websocket-jetty-server)
 
 ## Repositories
 
