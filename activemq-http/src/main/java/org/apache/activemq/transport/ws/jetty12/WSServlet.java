@@ -28,22 +28,20 @@ import org.apache.activemq.transport.TransportAcceptListener;
 import org.apache.activemq.transport.TransportFactory;
 import org.apache.activemq.transport.util.HttpTransportUtils;
 import org.apache.activemq.transport.ws.WSTransportProxy;
-import org.apache.activemq.transport.ws.jetty12.MQTTSocket;
-import org.apache.activemq.transport.ws.jetty12.StompSocket;
 
 import java.io.IOException;
 import java.net.URI;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
-import org.eclipse.jetty.ee9.websocket.server.JettyWebSocketServlet;
-//import org.eclipse.jetty.websocket.server.JettyWebSocketServletFactory;
+import org.eclipse.jetty.websocket.api.Session.Listener;
+import org.eclipse.jetty.ee9.websocket.server.*;
 
 /**
  * Handle connection upgrade requests and creates web sockets
  */
 public class WSServlet extends JettyWebSocketServlet implements BrokerServiceAware {
 
-    private static final long serialVersionUID = -4716657876092884139L;
+    private static final long serialVersionUID = 2534016066226355653L;
 
     private TransportAcceptListener listener;
 
@@ -86,7 +84,7 @@ public class WSServlet extends JettyWebSocketServlet implements BrokerServiceAwa
         factory.setCreator(new JettyWebSocketCreator() {
             @Override
             public Object createWebSocket(JettyServerUpgradeRequest req, JettyServerUpgradeResponse resp) {
-                WebSocketListener socket;
+                Listener socket;
                 Protocol requestedProtocol = Protocol.UNKNOWN;
 
                 // When no sub-protocol is requested we default to STOMP for legacy reasons.
@@ -104,8 +102,8 @@ public class WSServlet extends JettyWebSocketServlet implements BrokerServiceAwa
 
                 switch (requestedProtocol) {
                     case MQTT:
-                        socket = new org.apache.activemq.transport.ws.jetty11.MQTTSocket(HttpTransportUtils.generateWsRemoteAddress(req.getHttpServletRequest()));
-                        ((org.apache.activemq.transport.ws.jetty11.MQTTSocket) socket).setTransportOptions(new HashMap<>(transportOptions));
+                        socket = new MQTTSocket(HttpTransportUtils.generateWsRemoteAddress(req.getHttpServletRequest()));
+                        ((MQTTSocket) socket).setTransportOptions(new HashMap<>(transportOptions));
                         ((MQTTSocket) socket).setPeerCertificates(req.getCertificates());
                         resp.setAcceptedSubProtocol(getAcceptedSubProtocol(mqttProtocols, req.getSubProtocols(), "mqtt"));
                         break;
@@ -115,7 +113,7 @@ public class WSServlet extends JettyWebSocketServlet implements BrokerServiceAwa
                             break;
                         }
                     case STOMP:
-                        socket = new org.apache.activemq.transport.ws.jetty11.StompSocket(HttpTransportUtils.generateWsRemoteAddress(req.getHttpServletRequest()));
+                        socket = new StompSocket(HttpTransportUtils.generateWsRemoteAddress(req.getHttpServletRequest()));
                         ((StompSocket) socket).setPeerCertificates(req.getCertificates());
                         resp.setAcceptedSubProtocol(getAcceptedSubProtocol(stompProtocols, req.getSubProtocols(), "stomp"));
                         break;
@@ -134,7 +132,7 @@ public class WSServlet extends JettyWebSocketServlet implements BrokerServiceAwa
         });
     }
 
-    private WebSocketListener findWSTransport(JettyServerUpgradeRequest request, JettyServerUpgradeResponse response) {
+    private Listener findWSTransport(JettyServerUpgradeRequest request, JettyServerUpgradeResponse response) {
         WSTransportProxy proxy = null;
 
         for (String subProtocol : request.getSubProtocols()) {

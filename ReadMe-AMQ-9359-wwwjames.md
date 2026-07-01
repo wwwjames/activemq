@@ -29,6 +29,8 @@ due to open `jenv` issue.
 May have to explicitly check the `allow-securitymanager`, `jdk9+`, and `wwwjames-AMQ-9359` profiles then run 
 clean and install in the IntelliJ Maven tool window.
 
+May also have to manually set the JDK to 17 and remove modules in the IDE.
+
 See [Introduction to profiles](https://maven.apache.org/guides/introduction/introduction-to-profiles.html) for more
 information.
 

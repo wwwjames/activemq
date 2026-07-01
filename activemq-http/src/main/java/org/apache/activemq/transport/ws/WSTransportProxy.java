@@ -34,8 +34,9 @@ import org.apache.activemq.util.IOExceptionSupport;
 import org.apache.activemq.util.IntrospectionSupport;
 import org.apache.activemq.util.ServiceStopper;
 import org.apache.activemq.wireformat.WireFormat;
+import org.eclipse.jetty.websocket.api.Callback;
 import org.eclipse.jetty.websocket.api.Session;
-import org.eclipse.jetty.websocket.api.WebSocketListener;
+import org.eclipse.jetty.websocket.api.Session.Listener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -43,7 +44,7 @@ import org.slf4j.LoggerFactory;
  * A proxy class that manages sending WebSocket events to the wrapped protocol level
  * WebSocket Transport.
  */
-public final class WSTransportProxy extends TransportSupport implements Transport, WebSocketListener, BrokerServiceAware, WSTransportSink {
+public final class WSTransportProxy extends TransportSupport implements Transport, Listener, BrokerServiceAware, WSTransportSink {
 
     private static final Logger LOG = LoggerFactory.getLogger(WSTransportProxy.class);
 
@@ -159,7 +160,8 @@ public final class WSTransportProxy extends TransportSupport implements Transpor
     //----- WebSocket methods being proxied to the WS Transport --------------//
 
     @Override
-    public void onWebSocketBinary(byte[] payload, int offset, int length) {
+    public void onWebSocketBinary( ByteBuffer payload, Callback callback ) {
+
         if (!transportStartedAtLeastOnce()) {
             LOG.debug("Waiting for WebSocket to be properly started...");
             try {
@@ -171,7 +173,7 @@ public final class WSTransportProxy extends TransportSupport implements Transpor
 
         protocolLock.lock();
         try {
-            wsTransport.onWebSocketBinary(ByteBuffer.wrap(payload, offset, length));
+            wsTransport.onWebSocketBinary(payload);
         } catch (Exception e) {
             onException(IOExceptionSupport.create(e));
         } finally {
@@ -217,13 +219,13 @@ public final class WSTransportProxy extends TransportSupport implements Transpor
     }
 
     @Override
-    public void onWebSocketConnect(Session session) {
+    public void onWebSocketOpen(Session session) {
         this.session = session;
         this.session.setIdleTimeout(Duration.ZERO);
 
         if (wsTransport.getMaxFrameSize() > 0) {
-            this.session.getPolicy().setMaxBinaryMessageSize(wsTransport.getMaxFrameSize());
-            this.session.getPolicy().setMaxTextMessageSize(wsTransport.getMaxFrameSize());
+            this.session.setMaxBinaryMessageSize(wsTransport.getMaxFrameSize());
+            this.session.setMaxTextMessageSize(wsTransport.getMaxFrameSize());
         }
     }
 
@@ -246,7 +248,7 @@ public final class WSTransportProxy extends TransportSupport implements Transpor
         LOG.trace("WS Proxy sending string of size {} out", data.length());
         try {
             // FIXME: Convert to async API w/ tiemeout getDefaultSendTimeOut(), TimeUnit.SECONDS);
-            session.getRemote().sendBytes(ByteBuffer.wrap(data.getBytes()));
+            session.sendBinary(ByteBuffer.wrap(data.getBytes()), Callback.NOOP);
         } catch (Exception e) {
             throw IOExceptionSupport.create(e);
         }
@@ -267,7 +269,7 @@ public final class WSTransportProxy extends TransportSupport implements Transpor
         int limit = data.limit();
         try {
             // FIXME: Convert to async API w/ tiemeout getDefaultSendTimeOut(), TimeUnit.SECONDS);
-            session.getRemote().sendBytes(data);
+            session.sendBinary(data,Callback.NOOP);
         } catch (Exception e) {
             throw IOExceptionSupport.create(e);
         }
