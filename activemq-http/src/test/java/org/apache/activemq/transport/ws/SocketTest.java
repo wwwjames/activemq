@@ -18,8 +18,8 @@ package org.apache.activemq.transport.ws;
 
 import static org.junit.Assert.assertEquals;
 
-import org.apache.activemq.transport.ws.jetty11.MQTTSocket;
-import org.apache.activemq.transport.ws.jetty11.StompSocket;
+import org.apache.activemq.transport.ws.jetty12.MQTTSocket;
+import org.apache.activemq.transport.ws.jetty12.StompSocket;
 import org.junit.Test;
 
 public class SocketTest {

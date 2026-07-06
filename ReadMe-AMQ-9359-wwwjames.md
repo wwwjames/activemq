@@ -7,7 +7,10 @@ addressed since they are now EOL[3].
 There have been sigificant changes made to Jetty 12.x, and while they have provided migration guides, they are 
 incomplete in many places[4], thus requiring alot of back and forth with examples as suggested.
 
-** NOTE: ** This ReadMe will be removed.
+**NOTES:** 
+
+- This ReadMe will be removed.
+- Found a fork and AMQ-9359 branch from Matt Pavlovitch[5], who is the ActiveMQ PMC & Comitter. 
 
 ## Setup
 
@@ -57,6 +60,7 @@ to `org.apache.activemq.transport.ws.jetty12`.
 ## Repositories
 
 - [Jetty 12.0.x examples](https://github.com/jetty/jetty-examples/blob/12.0.x/pom.xml)
+- [Matt Pavolvic's AMQ-9359 fork](https://github.com/mattrpav/activemq/tree/AMQ-9359)
 
 ## References
 
@@ -64,3 +68,4 @@ to `org.apache.activemq.transport.ws.jetty12`.
 - [2](https://github.com/apache/activemq/pull/1344)
 - [3](https://webtide.com/end-of-life-changes-to-eclipse-jetty-and-cometd)
 - [4](https://github.com/jetty/jetty.project/issues/11461)
+- [5](https://github.com/mattrpav)

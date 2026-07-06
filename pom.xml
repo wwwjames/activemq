@@ -1425,6 +1425,7 @@
       <module>activemq-amqp</module>
       <module>activemq-kahadb-store</module>
       <module>activemq-jdbc-store</module>
+      <module>activemq-unit-tests</module>
       <module>activemq-console</module>
       <module>activemq-jaas</module>
       <module>activemq-jms-pool</module>
@@ -1433,7 +1434,6 @@
       <module>activemq-ra</module>
       <module>activemq-rar</module>
       <module>activemq-run</module>
-      <module>activemq-shiro</module>
       <module>activemq-spring</module>
       <module>activemq-tooling</module>
       <module>activemq-web</module>

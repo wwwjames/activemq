@@ -28,7 +28,7 @@ import org.apache.activemq.broker.BrokerServiceAware;
 import org.apache.activemq.command.BrokerInfo;
 import org.apache.activemq.transport.SocketConnectorFactory;
 import org.apache.activemq.transport.WebTransportServerSupport;
-import org.apache.activemq.transport.ws.jetty11.WSServlet;
+import org.apache.activemq.transport.ws.jetty12.WSServlet;
 import org.apache.activemq.util.IntrospectionSupport;
 import org.apache.activemq.util.ServiceStopper;
 import org.eclipse.jetty.ee9.security.ConstraintSecurityHandler;

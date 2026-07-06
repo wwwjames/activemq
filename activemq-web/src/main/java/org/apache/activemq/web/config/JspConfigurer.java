@@ -16,11 +16,11 @@
  */
 package org.apache.activemq.web.config;
 
-import org.eclipse.jetty.server.Handler;
+import org.eclipse.jetty.ee9.nested.Handler;
 import org.eclipse.jetty.server.Server;
-import org.eclipse.jetty.server.handler.HandlerCollection;
-import org.eclipse.jetty.webapp.Configuration;
-import org.eclipse.jetty.webapp.WebAppContext;
+import org.eclipse.jetty.ee9.nested.HandlerCollection;
+//import org.eclipse.jetty.ee9.webapp.Configuration;
+import org.eclipse.jetty.ee9.webapp.WebAppContext;
 
 /**
  *
