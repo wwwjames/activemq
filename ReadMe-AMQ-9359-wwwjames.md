@@ -14,14 +14,12 @@ incomplete in many places[4], thus requiring alot of back and forth with example
 
 ## Setup
 
-Using manually installed and aliased maven 3.9.x since its required for ActiveMQ and Java 17 to compile.
-Maven 3.9.x is manually installed since its not included with apt.
-
+Using manually installed maven 3.9.x since its required for ActiveMQ and Java 17 to compile.
 Also using `jenv` to manage JDKs.
 
 ```
 $ jenv shell 17
-$ mvn-39 -DskipTests clean install
+$ mvn -DskipTests clean install
 ```
 
 **NOTE:** See ~/.profile for details, had to modify for jenv shell to work with new logins
@@ -45,7 +43,7 @@ number of moudles to work on in the temporary `wwwjames-AMQ-9359` maven profile 
 Use the following for the initial build before importing into IntelliJ:
 
 ```
-$ mvn-39 clean install
+$ mvn clean install
 ```
         
 **TODO:** Currently porting `activemq-http` module, finish porting and deprecating classes from `org.apache.activemq.transport.ws.jetty11`
